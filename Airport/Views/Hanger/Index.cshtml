@@ -1,0 +1,98 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm())
+{
+    <table>
+        <tr>
+            <td><label for="HangerLocation">Hanger Location:</label></td>
+            <td>@Html.TextBox("HangerLocation")</td>
+            <td>@Html.ValidationMessage("HangerLocation")</td>
+        </tr>
+        <tr>
+            <td><label for="HangerCapacity">Hanger Capacity:</label></td>
+            <td>@Html.TextBox("HangerCapacity")</td>
+            <td>@Html.ValidationMessage("HangerCapacity")</td>
+        </tr>
+        <tr>
+            <td><label for="ManagerName">Manager Name:</label></td>
+            <td>@Html.TextBox("ManagerName")</td>
+            <td>@Html.ValidationMessage("ManagerName")</td>
+        </tr>
+        <tr>
+            <td><label for="SocialSecuirtyNo">Social Security Number:</label></td>
+            <td>@Html.TextBox("SocialSecuirtyNo")</td>
+            <td>@Html.ValidationMessage("SocialSecuirtyNo")</td>
+        </tr>
+        <tr>
+            <td><label for="Dob">Date of Birth:</label></td>
+            <td>@Html.TextBox("Dob", null, new { type = "date" })</td>
+            <td>@Html.ValidationMessage("Dob")</td>
+        </tr>
+        <tr>
+            <td><label for="Gender">Gender:</label></td>
+            <td>
+                @Html.DropDownList("Gender", new List<SelectListItem>
+               {
+                   new SelectListItem { Value = "", Text = "Select" },
+                   new SelectListItem { Value = "Male", Text = "Male" },
+                   new SelectListItem { Value = "Female", Text = "Female" },
+                   new SelectListItem { Value = "Others", Text = "Others" }
+               }, new { @class = "form-control" })
+            </td>
+            <td>@Html.ValidationMessage("Gender")</td>
+        </tr>
+        <tr>
+            <td><label for="MobileNo">Mobile Number:</label></td>
+            <td>@Html.TextBox("MobileNo")</td>
+            <td>@Html.ValidationMessage("MobileNo")</td>
+        </tr>
+        <tr>
+            <td><label for="Email">Email Address:</label></td>
+            <td>@Html.TextBox("Email")</td>
+            <td>@Html.ValidationMessage("Email")</td>
+        </tr>
+        <tr>
+            <td><label for="HouseNo">House Number:</label></td>
+            <td>@Html.TextBox("HouseNo")</td>
+            <td>@Html.ValidationMessage("HouseNo")</td>
+        </tr>
+        <tr>
+            <td><label for="AddressLine">Address Line:</label></td>
+            <td>@Html.TextArea("AddressLine")</td>
+            <td>@Html.ValidationMessage("AddressLine")</td>
+        </tr>
+        <tr>
+            <td><label for="City">City:</label></td>
+            <td>@Html.TextBox("City")</td>
+            <td>@Html.ValidationMessage("City")</td>
+        </tr>
+        <tr>
+            <td><label for="State">State:</label></td>
+            <td>@Html.TextBox("State")</td>
+            <td>@Html.ValidationMessage("State")</td>
+        </tr>
+        <tr>
+            <td><label for="Country">Country:</label></td>
+            <td>@Html.TextBox("Country")</td>
+            <td>@Html.ValidationMessage("Country")</td>
+        </tr>
+        <tr>
+            <td><label for="PinNo">Pin Number:</label></td>
+            <td>@Html.TextBox("PinNo")</td>
+            <td>@Html.ValidationMessage("PinNo")</td>
+        </tr>
+        <tr>
+            <td colspan="3"><input name="HangerBtn" type="submit" value="AddHanger" /></td>
+            <td colspan="3"><input name="HangerBtn" type="submit" value="Reset" /></td>
+        </tr>
+    </table>
+}
+@if (ViewBag.msg != null)
+{
+    <p class="text-danger">@ViewBag.msg</p>
+}
