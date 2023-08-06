@@ -62,5 +62,63 @@ namespace Airport.Controllers
                 return View();
             }
         }
+        [HttpGet]
+        public ActionResult GetHangers()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult GetHangers(DateTime FromDate,DateTime ToDate)
+        {
+            if (ModelState.IsValid)
+            {
+                List < GetAvailableHangers > l= null;
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri("https://localhost:44304/api/");
+                    var query = $"HangerDetails?fromdate={FromDate:yyyy-MM-dd}&todate={ToDate:yyyy-MM-dd}";
+
+
+                    var responseTask = client.GetAsync(query);
+                    responseTask.Wait();
+                    var result = responseTask.Result;
+                    var readData = result.Content.ReadAsAsync<List<GetAvailableHangers>>();
+                    if (result.IsSuccessStatusCode)
+                    {
+                        l = readData.Result;
+                        
+                        ModelState.Clear();
+                        return View("displayHangers",l);
+                    }
+                    else
+                    {
+                        l = readData.Result;
+                        if(l==null || l.Count==0)
+                        {
+                            ViewBag.msg = "No Hangers Available chose different dates to find hanger availability";
+                        }
+                        return View();
+                    }
+                }
+            }
+            else
+            {
+                ViewBag.msg = "couldn't get Hangers";
+                return View();
+            }
+        }
+
+        public ActionResult displayHangers(List<GetAvailableHangers> data)
+        {
+            return View(data);
+        }
+        [HttpPost]
+        public ActionResult displayHangers(string Book)
+        {
+            
+            return View();
+
+        }
     }
 }

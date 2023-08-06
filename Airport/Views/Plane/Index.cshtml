@@ -1,0 +1,92 @@
+﻿@model Airport.Models.Entities.AddPlane
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+@using (Html.BeginForm())
+{
+    <table>
+        <tr>
+            <td>@Html.Label("ManufacturerName", "Manufacturer Name")</td>
+            <td>@Html.TextBox("ManufacturerName")</td>
+            <td>@Html.ValidationMessage("ManufacturerName")</td>
+        </tr>
+        <tr>
+            <td>@Html.Label("RegistrationNo", "Registration No")</td>
+            <td>@Html.TextBox("RegistrationNo")</td>
+            <td>@Html.ValidationMessage("RegistrationNo")</td>
+        </tr>
+        <tr>
+            <td>@Html.Label("ModelNo", "Model No")</td>
+            <td>@Html.TextBox("ModelNo")</td>
+            <td>@Html.ValidationMessage("ModelNo")</td>
+        </tr>
+        <tr>
+            <td>@Html.Label("PlaneName", "Plane Name")</td>
+            <td>@Html.TextBox("PlaneName")</td>
+            <td>@Html.ValidationMessage("PlaneName")</td>
+        </tr>
+        <tr>
+            <td>@Html.Label("Capacity", "Capacity")</td>
+            <td>@Html.TextBox("Capacity")</td>
+            <td>@Html.ValidationMessage("Capacity")</td>
+        </tr>
+        <tr>
+            <td>@Html.Label("Email", "Email")</td>
+            <td>@Html.TextBox("Email")</td>
+            <td>@Html.ValidationMessage("Email")</td>
+        </tr>
+        <tr>
+            <td>@Html.Label("HouseNo", "House No")</td>
+            <td>@Html.TextBox("HouseNo", null, new { disabled = "disabled" })</td>
+            <td>@Html.ValidationMessage("HouseNo")</td>
+        </tr>
+        <tr>
+            <td>@Html.Label("City", "City")</td>
+            <td>@Html.TextBox("City", null, new { disabled = "disabled" })</td>
+            <td>@Html.ValidationMessage("City")</td>
+        </tr>
+        <tr>
+            <td>@Html.Label("State", "State")</td>
+            <td>@Html.TextBox("State", null, new { disabled = "disabled" })</td>
+            <td>@Html.ValidationMessage("State")</td>
+        </tr>
+        <tr>
+            <td>@Html.Label("Country", "Country")</td>
+            <td>@Html.TextBox("Country", null, new { disabled = "disabled" })</td>
+            <td>@Html.ValidationMessage("Country")</td>
+        </tr>
+        <tr>
+            <td>@Html.Label("AddressLine", "Address Line")</td>
+            <td>@Html.TextBox("AddressLine", null, new { disabled = "disabled" })</td>
+            <td>@Html.ValidationMessage("AddressLine")</td>
+        </tr>
+        <tr>
+            <td>@Html.Label("PinNo", "Pin No")</td>
+            <td>@Html.TextBox("PinNo", null, new { disabled = "disabled" })</td>
+            <td>@Html.ValidationMessage("PinNo")</td>
+        </tr>
+    </table>
+    <input type="submit" name="PlaneBtn" value="AddPlane" id="PlaneSubmitBtn" />
+    <input type="submit" name="PlaneBtn" value="Reset" />
+}
+@if (ViewBag.msg != null)
+{
+    <p class="text-danger">@ViewBag.msg</p>
+}
+<script src="~/Scripts/Myscripts/EmailBlur.js"></script>
+
+@if(ViewBag.err!=null)
+            {
+                <script>
+                    $("#HouseNo").removeAttr("disabled");
+                    $("#City").removeAttr("disabled");
+                    $("#State").removeAttr("disabled");
+                    $("#Country").removeAttr("disabled");
+                    $("#PinNo").removeAttr("disabled");
+                    $("#AddressLine").removeAttr("disabled");
+                </script>
+            }

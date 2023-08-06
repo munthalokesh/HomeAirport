@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Airport.Models.Entities.GetAvailableHangers>
+@{
+    ViewBag.Title = "displayHangers";
+}
+
+<h2>displayHangers</h2>
+
+@using (Html.BeginForm("displayHangers","Hanger",FormMethod.Post))
+{
+    if (Model != null)
+    {
+        <table>
+            <tr>
+                <th>Hanger Location</th>
+                <th>Hanger Number</th>
+                <th>Manager Name</th>
+                <th>Social Securtiy Number</th>
+                <th>Book</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.HangerLocation</td>
+                    <td>@item.HangerId</td>
+                    <td>@item.ManagerName</td>
+                    <td>@item.SSNo</td>
+                    <td>@Html.RadioButton("Book", item.HangerId)</td>
+                </tr>
+            }
+            <tr><input type="submit" value="submit" /></tr>
+        </table>
+
+    }
+    else
+    {
+        <p class="text-danger">No Availabe Hangers available in the selected dates</p>
+    }
+}
