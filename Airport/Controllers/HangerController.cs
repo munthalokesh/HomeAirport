@@ -27,7 +27,7 @@ namespace Airport.Controllers
                     using (var client = new HttpClient())
                     {
                         client.BaseAddress = new Uri("https://localhost:44304/api/");
-                        var responseTask = client.PostAsJsonAsync<AddHanger>("HangerDetails", Ah);
+                        var responseTask = client.PostAsJsonAsync<AddHanger>("HangerDetails/AddHanger", Ah);
                         responseTask.Wait();
                         var result = responseTask.Result;
                         var readData = result.Content.ReadAsAsync<string>();
@@ -36,7 +36,7 @@ namespace Airport.Controllers
                             st = readData.Result;
                             ViewBag.msg = st;
                             ModelState.Clear();
-                            return View(new AddHanger());
+                            return View();
                         }
                         else
                         {
@@ -74,10 +74,14 @@ namespace Airport.Controllers
             if (ModelState.IsValid)
             {
                 List < GetAvailableHangers > l= null;
+                TempData["fromdate"] = FromDate;
+                TempData["todate"]=ToDate;
+                TempData["fromdate1"] = FromDate;
+                TempData["todate1"] = ToDate;
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri("https://localhost:44304/api/");
-                    var query = $"HangerDetails?fromdate={FromDate:yyyy-MM-dd}&todate={ToDate:yyyy-MM-dd}";
+                    var query = $"HangerDetails/GetAvailableHangers?fromdate={FromDate:yyyy-MM-dd}&todate={ToDate:yyyy-MM-dd}";
 
 
                     var responseTask = client.GetAsync(query);
@@ -113,12 +117,92 @@ namespace Airport.Controllers
         {
             return View(data);
         }
-        [HttpPost]
-        public ActionResult displayHangers(string Book)
-        {
-            
-            return View();
 
+
+        [HttpPost]
+        public ActionResult displayHangers(string Book,FormCollection form)
+        {
+            string HangerLocation= form[Book+1];
+            string HangerId = form[Book+2];
+            TempData["hangerlocation"] = HangerLocation;
+            TempData["hangerid"]=HangerId;
+            TempData["hangerid1"] = HangerId;
+            if (ModelState.IsValid)
+            {
+                List<GetAvailablePlanes> l = null;
+                DateTime FromDate = (DateTime)TempData["fromdate"];
+                DateTime ToDate = (DateTime)TempData["todate"];
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri("https://localhost:44304/api/");
+                    var query = $"HangerDetails/GetAvailablePlanes?fromdate={FromDate:yyyy-MM-dd}&todate={ToDate:yyyy-MM-dd}";
+
+
+                    var responseTask = client.GetAsync(query);
+                    responseTask.Wait();
+                    var result = responseTask.Result;
+                    var readData = result.Content.ReadAsAsync<List<GetAvailablePlanes>>();
+                    if (result.IsSuccessStatusCode)
+                    {
+                        l = readData.Result;
+                        
+                        ModelState.Clear();
+                        return View("BookHanger",l);
+                    }
+                    else
+                    {
+                        l = readData.Result;
+                        if (l == null || l.Count == 0)
+                        {
+                            l.Add(null);
+                        }
+                        ViewBag.msg = "No Plane Available in the Selected timeframe";
+                        return View();
+                    }
+                }
+            }
+            else
+            {
+                ViewBag.msg = "Select Plane";
+                return View();
+            }
+            
+        }
+        public ActionResult BookHanger()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult BookHanger(string SelectedPlaneId)
+        {
+            string st = "";
+            Booking b=new Booking();
+            b.FromDate = (DateTime)TempData["fromdate1"];
+            b.ToDate = (DateTime)TempData["todate1"];
+            b.PlaneId = SelectedPlaneId;
+            b.HangerId = (string)TempData["hangerid1"];
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44304/api/");
+                var responseTask = client.PostAsJsonAsync<Booking>("HangerDetails/AddBooking", b);
+                responseTask.Wait();
+                var result = responseTask.Result;
+                var readData = result.Content.ReadAsAsync<string>();
+                if (result.IsSuccessStatusCode)
+                {
+                    st = readData.Result;
+                    ViewBag.msg = st;
+                    ModelState.Clear();
+                    return View();
+                }
+                else
+                {
+                    st = readData.Result;
+                    ViewBag.msg = st;
+                    return View();
+                }
+            }
         }
     }
 }

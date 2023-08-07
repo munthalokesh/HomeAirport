@@ -5,7 +5,7 @@
 
 <h2>displayHangers</h2>
 
-@using (Html.BeginForm("displayHangers","Hanger",FormMethod.Post))
+@using (Html.BeginForm("displayHangers", "Hanger",FormMethod.Post))
 {
     if (Model != null)
     {
@@ -21,9 +21,13 @@
             {
                 <tr>
                     <td>@item.HangerLocation</td>
+                    <input type="hidden" name="@($"{item.HangerId}1")" value=@item.HangerLocation />
                     <td>@item.HangerId</td>
+                    <input type="hidden" name="@($"{item.HangerId}2")" value=@item.HangerId />
                     <td>@item.ManagerName</td>
+                   
                     <td>@item.SSNo</td>
+                    
                     <td>@Html.RadioButton("Book", item.HangerId)</td>
                 </tr>
             }
@@ -35,4 +39,10 @@
     {
         <p class="text-danger">No Availabe Hangers available in the selected dates</p>
     }
+}
+@if (ViewBag.msg != null)
+{
+    <p>
+        @ViewBag.msg
+    </p>
 }

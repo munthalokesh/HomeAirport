@@ -135,7 +135,9 @@
     <Compile Include="Models\Entities\AddPilot.cs" />
     <Compile Include="Models\Entities\AddPlane.cs" />
     <Compile Include="Models\Entities\Address.cs" />
+    <Compile Include="Models\Entities\Booking.cs" />
     <Compile Include="Models\Entities\GetAvailableHangers.cs" />
+    <Compile Include="Models\Entities\GetAvailablePlanes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -195,6 +197,7 @@
     <Content Include="Views\Plane\Index.cshtml" />
     <Content Include="Views\Hanger\GetHangers.cshtml" />
     <Content Include="Views\Hanger\displayHangers.cshtml" />
+    <Content Include="Views\Hanger\BookHanger.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
