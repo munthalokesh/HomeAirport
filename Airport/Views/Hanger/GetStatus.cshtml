@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Airport.Models.Entities.Hanger>
+@{
+    ViewBag.Title = "GetStatus";
+}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<h2>GetStatus</h2>
+
+@using (Html.BeginForm())
+{
+    <select name="SelectedPlaneId" class="form-control" id="SelectedPlaneId">
+        <option value="">Select a Hanger</option>
+        @if (Model != null)
+        {
+            foreach (var hanger in Model)
+            {
+                <option value="@hanger.HangerId">@hanger.HangerId</option>
+            }
+        }
+    </select>
+    if (Model != null)
+    {
+
+        foreach (var hanger in Model)
+        {
+            <input type="hidden" id="@($"L{hanger.HangerId}")" value="@hanger.HangerLocation" />
+            <input type="hidden" id="@($"C{hanger.HangerId}")" value="@hanger.HangerCapacity" />
+        }
+
+
+
+
+    }
+    @Html.TextBox("fromdate", null, new { type = "date" })
+    @Html.TextBox("todate", null, new { type = "date" })
+    <input type="button" id="Btnstatus" />
+}
+<table class="table table-striped" id="AvailableHangers"></table>
+<script src="~/Scripts/Myscripts/GetHangerStatus.js"></script>
