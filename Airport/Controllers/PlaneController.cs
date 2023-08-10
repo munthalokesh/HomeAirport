@@ -27,7 +27,7 @@ namespace Airport.Controllers
                     using (var client = new HttpClient())
                     {
                         client.BaseAddress = new Uri("https://localhost:44304/api/");
-                        var responseTask = client.PostAsJsonAsync<AddPlane>("Planes", ap);
+                        var responseTask = client.PostAsJsonAsync<AddPlane>("Planes/AddPlane", ap);
                         responseTask.Wait();
                         var result = responseTask.Result;
                         var readData = result.Content.ReadAsAsync<string>();
@@ -42,6 +42,7 @@ namespace Airport.Controllers
                         {
                             st = readData.Result;
                             ViewBag.msg = st;
+                            ModelState.Clear();
                             return View();
                         }
                     }
@@ -70,7 +71,7 @@ namespace Airport.Controllers
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://localhost:44304/api/");
-                var responseTask = client.GetAsync("Planes?email=" + email);
+                var responseTask = client.GetAsync("Planes/CheckMail?email=" + email);
                 responseTask.Wait();
                 var result = responseTask.Result;
                 if (result.IsSuccessStatusCode)

@@ -1,6 +1,7 @@
 ﻿using Airport.Models.Entities;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Web;
@@ -101,8 +102,12 @@ namespace Airport.Controllers
                         if(l==null || l.Count==0)
                         {
                             ViewBag.msg = "No Hangers Available chose different dates to find hanger availability";
+                            return View();
                         }
-                        return View();
+                        else
+                        {
+                            return View();
+                        }
                     }
                 }
             }
@@ -119,59 +124,59 @@ namespace Airport.Controllers
         }
 
 
-        [HttpPost]
-        public ActionResult displayHangers(string Book,FormCollection form)
-        {
-            string HangerLocation= form[Book+1];
-            string HangerId = form[Book+2];
-            TempData["hangerlocation"] = HangerLocation;
-            TempData["hangerid"]=HangerId;
-            TempData["hangerid1"] = HangerId;
-            if (ModelState.IsValid)
-            {
-                List<GetAvailablePlanes> l = null;
-                DateTime FromDate = (DateTime)TempData["fromdate"];
-                DateTime ToDate = (DateTime)TempData["todate"];
-                using (var client = new HttpClient())
-                {
-                    client.BaseAddress = new Uri("https://localhost:44304/api/");
-                    var query = $"HangerDetails/GetAvailablePlanes?fromdate={FromDate:yyyy-MM-dd}&todate={ToDate:yyyy-MM-dd}";
+        //[HttpPost]
+        //public ActionResult displayHangers(string Book,FormCollection form)
+        //{
+        //    string HangerLocation= form[Book+1];
+        //    string HangerId = form[Book+2];
+        //    TempData["hangerlocation"] = HangerLocation;
+        //    TempData["hangerid"]=HangerId;
+        //    TempData["hangerid1"] = HangerId;
+        //    if (ModelState.IsValid)
+        //    {
+        //        List<GetAvailablePlanes> l = null;
+        //        DateTime FromDate = (DateTime)TempData["fromdate"];
+        //        DateTime ToDate = (DateTime)TempData["todate"];
+        //        using (var client = new HttpClient())
+        //        {
+        //            client.BaseAddress = new Uri("https://localhost:44304/api/");
+        //            var query = $"HangerDetails/GetAvailablePlanes?fromdate={FromDate:yyyy-MM-dd}&todate={ToDate:yyyy-MM-dd}";
 
 
-                    var responseTask = client.GetAsync(query);
-                    responseTask.Wait();
-                    var result = responseTask.Result;
-                    var readData = result.Content.ReadAsAsync<List<GetAvailablePlanes>>();
-                    if (result.IsSuccessStatusCode)
-                    {
-                        l = readData.Result;
+        //            var responseTask = client.GetAsync(query);
+        //            responseTask.Wait();
+        //            var result = responseTask.Result;
+        //            var readData = result.Content.ReadAsAsync<List<GetAvailablePlanes>>();
+        //            if (result.IsSuccessStatusCode)
+        //            {
+        //                l = readData.Result;
                         
-                        ModelState.Clear();
-                        return View("BookHanger",l);
-                    }
-                    else
-                    {
-                        l = readData.Result;
-                        if (l == null || l.Count == 0)
-                        {
-                            l.Add(null);
-                        }
-                        ViewBag.msg = "No Plane Available in the Selected timeframe";
-                        return View();
-                    }
-                }
-            }
-            else
-            {
-                ViewBag.msg = "Select Plane";
-                return View();
-            }
+        //                ModelState.Clear();
+        //                return View("BookHanger",l);
+        //            }
+        //            else
+        //            {
+        //                l = readData.Result;
+        //                if (l == null || l.Count == 0)
+        //                {
+        //                    l.Add(null);
+        //                }
+        //                ViewBag.msg = "No Plane Available in the Selected timeframe";
+        //                return View();
+        //            }
+        //        }
+        //    }
+        //    else
+        //    {
+        //        ViewBag.msg = "Select Plane";
+        //        return View();
+        //    }
             
-        }
-        public ActionResult BookHanger()
-        {
-            return View();
-        }
+        //}
+        //public ActionResult BookHanger()
+        //{
+        //    return View();
+        //}
 
         [HttpPost]
         public ActionResult BookHanger(string SelectedPlaneId)
@@ -259,5 +264,43 @@ namespace Airport.Controllers
                 }
             }
         }
+        public ActionResult GetPlanes(DateTime FromDate,DateTime ToDate)
+        {
+            List<GetAvailablePlanes> l = null;
+            string formattedFromDate = FromDate.ToString("yyyy-MM-dd");
+            DateTime parsedFromDate = DateTime.ParseExact(formattedFromDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            string formattedToDate = ToDate.ToString("yyyy-MM-dd");
+            DateTime parsedToDate = DateTime.ParseExact(formattedToDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44304/api/");
+                var query = $"HangerDetails/GetAvailablePlanes?fromdate="+ parsedFromDate + "&todate="+parsedToDate;
+
+
+                var responseTask = client.GetAsync(query);
+                responseTask.Wait();
+                var result = responseTask.Result;
+                var readData = result.Content.ReadAsAsync<List<GetAvailablePlanes>>();
+                if (result.IsSuccessStatusCode)
+                {
+                    l = readData.Result;
+
+                   
+                    return Json(l,JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    l = readData.Result;
+                    if (l == null || l.Count == 0)
+                    {
+                        l.Add(null);
+                    }
+                    ViewBag.msg = "No Plane Available in the Selected timeframe";
+                    return Json(null, JsonRequestBehavior.AllowGet);
+                }
+            }
+        }
+            
     }
 }
+    

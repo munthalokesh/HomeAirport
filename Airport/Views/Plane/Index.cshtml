@@ -4,7 +4,7 @@
 }
 
 <h2>Index</h2>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
 @using (Html.BeginForm())
 {
@@ -79,14 +79,33 @@
 }
 <script src="~/Scripts/Myscripts/EmailBlur.js"></script>
 
-@if(ViewBag.err!=null)
-            {
-                <script>
-                    $("#HouseNo").removeAttr("disabled");
-                    $("#City").removeAttr("disabled");
-                    $("#State").removeAttr("disabled");
-                    $("#Country").removeAttr("disabled");
-                    $("#PinNo").removeAttr("disabled");
-                    $("#AddressLine").removeAttr("disabled");
-                </script>
-            }
+@if (ViewBag.err != null)
+{
+    <script>
+        $("#HouseNo").removeAttr("disabled");
+        $("#City").removeAttr("disabled");
+        $("#State").removeAttr("disabled");
+        $("#Country").removeAttr("disabled");
+        $("#PinNo").removeAttr("disabled");
+        $("#AddressLine").removeAttr("disabled");
+    </script>
+}
+<!-- Modal for Owner Not Found -->
+<div class="modal fade" id="ownerNotFoundModal" tabindex="-1" aria-labelledby="ownerNotFoundModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ownerNotFoundModalLabel">Owner Not Found</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Kindly enter the owner details.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

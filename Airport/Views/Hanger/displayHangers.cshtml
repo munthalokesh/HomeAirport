@@ -4,8 +4,8 @@
 }
 
 <h2>displayHangers</h2>
-
-@using (Html.BeginForm("displayHangers", "Hanger",FormMethod.Post))
+<script src="~/Scripts/Myscripts/GetPlanes.js"></script>
+@using (Html.BeginForm("displayHangers", "Hanger", FormMethod.Post))
 {
     if (Model != null)
     {
@@ -20,18 +20,24 @@
             @foreach (var item in Model)
             {
                 <tr>
+                    <input type="hidden" name="fromdate" value='@TempData["fromdate"]' />
+                    <input type="hidden" name="todate" value='@TempData["todate"]' />
                     <td>@item.HangerLocation</td>
-                    <input type="hidden" name="@($"{item.HangerId}1")" value=@item.HangerLocation />
+                    <input type="hidden" name="@($"L{item.HangerId}")" value=@item.HangerLocation />
                     <td>@item.HangerId</td>
-                    <input type="hidden" name="@($"{item.HangerId}2")" value=@item.HangerId />
+                    <input type="hidden" name="@($"I{item.HangerId}")" value=@item.HangerId />
                     <td>@item.ManagerName</td>
-                   
+
                     <td>@item.SSNo</td>
-                    
+
                     <td>@Html.RadioButton("Book", item.HangerId)</td>
                 </tr>
             }
-            <tr><input type="submit" value="submit" /></tr>
+            <tr>
+                <td>
+                    <input type="button" value="submit" data-bs-toggle="modal"  id="GetAvailablePlanes" />
+                </td>
+            </tr>
         </table>
 
     }
@@ -46,3 +52,45 @@
         @ViewBag.msg
     </p>
 }
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ownerNotFoundModalLabel">Book Hanger</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="BookHanger">submit</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ownerNotFoundModalLabel">Book Hanger</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -17,7 +17,7 @@ namespace Airport.Models.DataLayer
 
 
                 // Check if the date of birth is less than today's date
-                if (dateOfBirth.Date >= DateTime.Now.Date)
+                if (dateOfBirth.Date >= DateTime.Now.Date || dateOfBirth.Year < 1900)
                 {
                     return new ValidationResult(ErrorMessage);
                 }

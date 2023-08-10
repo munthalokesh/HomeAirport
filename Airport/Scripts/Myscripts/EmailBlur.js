@@ -32,7 +32,7 @@
             error: function (x, err) {
                 //alert(x.readyState);
                 //alert(x.responseText);
-                alert("Owner not found kindly please enter the details")
+                $('#ownerNotFoundModal').modal('show');
                 $("#HouseNo").removeAttr("disabled");
                 $("#City").removeAttr("disabled");
                 $("#State").removeAttr("disabled");
