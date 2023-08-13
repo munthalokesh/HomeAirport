@@ -6,9 +6,11 @@ using System.Net.Http;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Airport.Models.BusinessLayer;
 
 namespace Airport.Controllers
 {
+    [TypeAuthorization("Admin")]
     public class PlaneController : Controller
     {
         // GET: Plane
@@ -24,6 +26,8 @@ namespace Airport.Controllers
                 if (ModelState.IsValid)
                 {
                     string st = "";
+                    AddingPlane addingPlane = new AddingPlane();
+                    ap = addingPlane.trim(ap);
                     using (var client = new HttpClient())
                     {
                         client.BaseAddress = new Uri("https://localhost:44304/api/");

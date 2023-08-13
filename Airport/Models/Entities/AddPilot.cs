@@ -13,13 +13,14 @@ namespace Airport.Models.Entities
             public AddPilot() { }
             [Required(ErrorMessage = "Enter Pilot Name")]
             [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Pilot Name should contain only alphabets and spaces.")]
-            public string PilotName { get; set; }
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Name must be between 3 and 50 characters.")]
+        public string PilotName { get; set; }
             [Required(ErrorMessage = "Enter license number")]
             [RegularExpression(@"^\d{10}$", ErrorMessage = "The license number must be exactly 10 digits.")]
 
             public string LicenseNo { get; set; }
             [Required(ErrorMessage = "Enter social security number")]
-            [RegularExpression(@"^\d{3}-\d{2}-\d{4}$", ErrorMessage = "Invalid Social Security Number.")]
+            [RegularExpression(@"^\d{3}-\d{2}-\d{4}$", ErrorMessage = "Security Number should be in numbers in format ddd-dd-dddd")]
 
             public string SocialSecurityNo { get; set; }
 
@@ -33,24 +34,32 @@ namespace Airport.Models.Entities
             public string MobileNo { get; set; }
             [Required(ErrorMessage = "Enter email address")]
             [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "Please enter a valid email address.")]
-            public string EmailAddress { get; set; }
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Email must be between 3 and 50 characters.")]
+        public string EmailAddress { get; set; }
 
-            [Required(ErrorMessage = "Enter House number")]
-            public string HouseNo { get; set; }
-            [Required(ErrorMessage = "City is required.")]
-            [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "City should contain only alphabets and space.")]
-            public string City { get; set; }
-            [Required(ErrorMessage = "State is required.")]
-            [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "State should contain only alphabets and space.")]
-            public string State { get; set; }
+        [Required(ErrorMessage = "Enter House number")]
+        [StringLength(100, MinimumLength = 1, ErrorMessage = "House number must be between 1 and 100 characters.")]
+        public string HouseNo { get; set; }
 
-            [Required(ErrorMessage = "Country is required.")]
-            [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Country should contain only alphabets and space.")]
-            public string Country { get; set; }
-            [Required(ErrorMessage = "PIN Number is required.")]
+        [Required(ErrorMessage = "City is required.")]
+        [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "City should contain only alphabets and space.")]
+        [StringLength(100, MinimumLength = 3, ErrorMessage = "City name must be between 3 and 100 characters.")]
+        public string City { get; set; }
+
+        [Required(ErrorMessage = "State is required.")]
+        [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "State should contain only alphabets and space.")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "State name must be between 3 and 50 characters.")]
+        public string State { get; set; }
+        [Required(ErrorMessage = "Country is required.")]
+        [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Country should contain only alphabets and space.")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Country name must be between 3 and 50 characters.")]
+        public string Country { get; set; }
+
+        [Required(ErrorMessage = "PIN Number is required.")]
             [RegularExpression(@"^\d{7}$", ErrorMessage = "PIN Number should contain exactly 7 digits.")]
             public string PinNo { get; set; }
-            [Required(ErrorMessage ="*Required")]
-            public string AddressLine { get; set; }
-        }
+        [Required(ErrorMessage = "*Required")]
+        [StringLength(150, MinimumLength = 3, ErrorMessage = "Address must be between 3 and 150 characters.")]
+        public string AddressLine { get; set; }
+    }
     }

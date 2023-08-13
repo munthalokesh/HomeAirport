@@ -2,9 +2,61 @@
 @{
     ViewBag.Title = "displayHangers";
 }
+<h2 class="mt-5 text-center">Available Hanger Details</h2>
+<div class="center-content mt-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                @using (Html.BeginForm("displayHangers", "Hanger", FormMethod.Post))
+                {
+                    <!-- Your form content here -->
 
-<h2>displayHangers</h2>
-<script src="~/Scripts/Myscripts/GetPlanes.js"></script>
+                    if (Model != null)
+                    {
+                        <div class="custom-table">
+                            <div class="table-header">
+                                <div class="table-cell">Hanger Location</div>
+                                <div class="table-cell">Hanger Number</div>
+                                <div class="table-cell">Manager Name</div>
+                                <div class="table-cell">Social Security Number</div>
+                                <div class="table-cell">Book</div>
+                            </div>
+                            @foreach (var item in Model)
+                            {
+                                <input type="hidden" name="fromdate" value='@TempData["fromdate"]' />
+                                <input type="hidden" name="todate" value='@TempData["todate"]' />
+                                <input type="hidden" name="@($"L{item.HangerId}")" value='@item.HangerLocation' />
+                                <input type="hidden" name="@($"I{item.HangerId}")" value='@item.HangerId' />
+                                <div class="table-row">
+                                    <div class="table-cell">@item.HangerLocation</div>
+                                    <div class="table-cell">@item.HangerId</div>
+                                    <div class="table-cell">@item.ManagerName</div>
+                                    <div class="table-cell">@item.SSNo</div>
+                                    <div class="table-cell">@Html.RadioButton("Book", item.HangerId)</div>
+                                </div>
+                            }
+                        </div>
+                        <div class="table-row">
+                            <div class="table-cell" colspan="5">
+                                <input type="button" value="Submit" class="btn btn-primary" data-bs-toggle="modal" id="GetAvailablePlanes"/>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-danger">No Available Hangers available in the selected dates</p>
+                    }
+                }
+                @if (ViewBag.msg != null)
+                {
+                    <p>@ViewBag.msg</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@*<h2>displayHangers</h2>
+
 @using (Html.BeginForm("displayHangers", "Hanger", FormMethod.Post))
 {
     if (Model != null)
@@ -23,9 +75,9 @@
                     <input type="hidden" name="fromdate" value='@TempData["fromdate"]' />
                     <input type="hidden" name="todate" value='@TempData["todate"]' />
                     <td>@item.HangerLocation</td>
-                    <input type="hidden" name="@($"L{item.HangerId}")" value=@item.HangerLocation />
+                    <input type="hidden" name="@($"L{item.HangerId}")" value='@item.HangerLocation' />
                     <td>@item.HangerId</td>
-                    <input type="hidden" name="@($"I{item.HangerId}")" value=@item.HangerId />
+                    <input type="hidden" name="@($"I{item.HangerId}")" value='@item.HangerId' />
                     <td>@item.ManagerName</td>
 
                     <td>@item.SSNo</td>
@@ -35,7 +87,7 @@
             }
             <tr>
                 <td>
-                    <input type="button" value="submit" data-bs-toggle="modal"  id="GetAvailablePlanes" />
+                    <input type="button" value="submit" data-bs-toggle="modal" id="GetAvailablePlanes" />
                 </td>
             </tr>
         </table>
@@ -51,45 +103,43 @@
     <p>
         @ViewBag.msg
     </p>
-}
+}*@
 <!-- Button trigger modal -->
-
-
 <!-- Modal -->
-<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModal" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal" id="successModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="ownerNotFoundModalLabel">Book Hanger</h5>
+                <h5 class="modal-title">Book Hanger</h5>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                
+                <!-- Content goes here -->
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" id="BookHanger">submit</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="BookHanger">Book</button>
             </div>
         </div>
     </div>
 </div>
-
-<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModal" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal" id="errorModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="ownerNotFoundModalLabel">Book Hanger</h5>
+                <h5 class="modal-title">Book Hanger</h5>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-
+                <!-- Content goes here -->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
             </div>
         </div>
     </div>

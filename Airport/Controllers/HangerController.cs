@@ -1,4 +1,5 @@
-﻿using Airport.Models.Entities;
+﻿using Airport.Models.BusinessLayer;
+using Airport.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -12,11 +13,12 @@ namespace Airport.Controllers
     public class HangerController : Controller
     {
         // GET: Hanger
+        [TypeAuthorization("Admin")]
         public ActionResult Index()
         {
             return View();
         }
-
+        [TypeAuthorization("Admin")]
         [HttpPost]
         public ActionResult Index(AddHanger Ah, string HangerBtn)
         {
@@ -25,6 +27,8 @@ namespace Airport.Controllers
                 if (ModelState.IsValid)
                 {
                     string st = "";
+                    AddingHanger addingHanger = new AddingHanger();
+                    Ah = addingHanger.trim(Ah);
                     using (var client = new HttpClient())
                     {
                         client.BaseAddress = new Uri("https://localhost:44304/api/");
@@ -63,22 +67,27 @@ namespace Airport.Controllers
                 return View();
             }
         }
+        [TypeAuthorization("Manager")]
         [HttpGet]
         public ActionResult GetHangers()
         {
             return View();
         }
-
+        [TypeAuthorization("Manager")]
         [HttpPost]
-        public ActionResult GetHangers(DateTime FromDate,DateTime ToDate)
+        public ActionResult GetHangers(DateTime? FromDate,DateTime? ToDate,string GetHangersBtn)
         {
-            if (ModelState.IsValid)
+            if (GetHangersBtn=="GetHangers")
             {
                 List < GetAvailableHangers > l= null;
                 TempData["fromdate"] = FromDate;
                 TempData["todate"]=ToDate;
                 TempData["fromdate1"] = FromDate;
                 TempData["todate1"] = ToDate;
+                if(!ToDate.HasValue)
+                {
+                    ToDate = FromDate;
+                }
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri("https://localhost:44304/api/");
@@ -111,13 +120,15 @@ namespace Airport.Controllers
                     }
                 }
             }
+
             else
             {
                 ViewBag.msg = "couldn't get Hangers";
+                ModelState.Clear();
                 return View();
             }
         }
-
+        [TypeAuthorization("Manager")]
         public ActionResult displayHangers(List<GetAvailableHangers> data)
         {
             return View(data);
@@ -150,7 +161,7 @@ namespace Airport.Controllers
         //            if (result.IsSuccessStatusCode)
         //            {
         //                l = readData.Result;
-                        
+
         //                ModelState.Clear();
         //                return View("BookHanger",l);
         //            }
@@ -171,22 +182,22 @@ namespace Airport.Controllers
         //        ViewBag.msg = "Select Plane";
         //        return View();
         //    }
-            
+
         //}
         //public ActionResult BookHanger()
         //{
         //    return View();
         //}
-
+        [TypeAuthorization("Manager")]
         [HttpPost]
-        public ActionResult BookHanger(string SelectedPlaneId)
+        public ActionResult BookHanger(DateTime fromdate, DateTime todate, string planeId, string hangerId)
         {
             string st = "";
             Booking b=new Booking();
-            b.FromDate = (DateTime)TempData["fromdate1"];
-            b.ToDate = (DateTime)TempData["todate1"];
-            b.PlaneId = SelectedPlaneId;
-            b.HangerId = (string)TempData["hangerid1"];
+            b.FromDate = fromdate;
+            b.ToDate = todate;
+            b.PlaneId = planeId;
+            b.HangerId = hangerId;
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://localhost:44304/api/");
@@ -199,16 +210,17 @@ namespace Airport.Controllers
                     st = readData.Result;
                     ViewBag.msg = st;
                     ModelState.Clear();
-                    return View();
+                    return Json(st);
                 }
                 else
                 {
                     st = readData.Result;
                     ViewBag.msg = st;
-                    return View();
+                    return Json(st);
                 }
             }
         }
+        [TypeAuthorization("Manager")]
         public ActionResult GetStatus()
         {
             List<Hanger> st = null;
@@ -240,7 +252,7 @@ namespace Airport.Controllers
                 }
             }
         }
-        [HttpPost]
+        /*[HttpPost]
         public ActionResult GetStatus(DateTime fromdate, DateTime todate)
         {
             List<Hanger> st = null;
@@ -263,7 +275,8 @@ namespace Airport.Controllers
                     return View(st);
                 }
             }
-        }
+        }*/
+        [TypeAuthorization("Manager")]
         public ActionResult GetPlanes(DateTime FromDate,DateTime ToDate)
         {
             List<GetAvailablePlanes> l = null;

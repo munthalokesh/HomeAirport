@@ -1,4 +1,5 @@
-﻿using Airport.Models.Entities;
+﻿using Airport.Models.BusinessLayer;
+using Airport.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Web.Mvc;
 
 namespace Airport.Controllers
 {
+    [TypeAuthorization("Admin")]
     public class PilotController : Controller
     {
         // GET: Pilot
@@ -24,10 +26,12 @@ namespace Airport.Controllers
                 if (ModelState.IsValid)
                 {
                     string st = "";
+                    AddingPilot addingPilot = new AddingPilot();
+                    a = addingPilot.trim(a);
                     using (var client = new HttpClient())
                     {
                         client.BaseAddress = new Uri("https://localhost:44304/api/");
-                        var responseTask = client.PostAsJsonAsync<AddPilot>("Pilot", a);
+                        var responseTask = client.PostAsJsonAsync<AddPilot>("Pilot/AddPilot", a);
                         responseTask.Wait();
                         var result = responseTask.Result;
                         var readData = result.Content.ReadAsAsync<string>();
