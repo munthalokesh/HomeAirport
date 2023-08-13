@@ -183,6 +183,7 @@
     <Content Include="Content\Images\avd.jpg" />
     <Content Include="Content\Images\Capture.PNG" />
     <Content Include="Content\Images\getstatus.jpg" />
+    <Content Include="Content\Images\icons8-male-user-50.png" />
     <Content Include="Content\Images\MicrosoftTeams-image %281%29.png" />
     <Content Include="Content\Images\Untitled-design-38.jpg" />
     <Content Include="Content\Manager\ManagerHome.css" />

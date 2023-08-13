@@ -403,24 +403,39 @@ body {
     min-width: 100%;
     min-height: 100%;
 }
-.profile-icon {
+.login-icon {
     position: relative;
     display: inline-block;
     cursor: pointer;
-    padding-right:30px;
+    
+    height:50px;
+    width:50px;
+    color:white;
 }
 
 .dropdown {
     position: absolute;
     top: 100%;
     left: 0;
-    width: 150px;
-    background-color: #f9f9f9;
+    right: 50px;
+    width: 100px;
+    background-color: black;
     border: 1px solid #ddd;
+    border-radius:5px;
     padding: 10px;
     display: none;
+    transform: translateX(-50%);
+    text-align:center;
 }
-
+.profile-icon {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
 .profile-icon:hover .dropdown {
     display: block;
+}
+.login{
+    
+    color:red;
 }

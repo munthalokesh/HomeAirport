@@ -18,7 +18,8 @@
                 todate = fromdate
             }
             
-
+            document.querySelector('.spinner-container').style.display = 'flex';
+            document.querySelector('.center-content').style.display = 'none';
             $.ajax({
                 url: "/Hanger/GetPlanes?FromDate=" + fromdate + "&ToDate=" + todate,
                 type: 'Get',
@@ -28,7 +29,8 @@
                     var successModel = $("#successModal");
                     var modalBody = $('#successModal .modal-body');
                     modalBody.empty();
-
+                    document.querySelector('.spinner-container').style.display = 'none';
+                    document.querySelector('.center-content').style.display = 'flex';
                     if (data != null && data.length > 0) {
                         var location = "<p><span class=label>Hanger Location: </span>" + $("input[name='L" + HangerId + "']").val() + "</p>";
                         var capacity = "<p><span class=label>Hanger Id: </span> " + HangerId + "</p>";
@@ -48,6 +50,8 @@
                         $('#successModal').modal('show');
                     }
                     else {
+                        document.querySelector('.spinner-container').style.display = 'none';
+                        document.querySelector('.center-content').style.display = 'flex';
                         var modalBody = $('#errorModal .modal-body');
                         modalBody.empty();
                         modalBody.append("No Plane Available between " + fromdate + " to " + todate);
