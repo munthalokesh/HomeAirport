@@ -2,38 +2,72 @@
 @{
     ViewBag.Title = "Home";
 }
+<link rel="stylesheet" href="~/Content/Admin/StyleSheet1.less" />
 
 
-   
 
 
-<div class=" admin-home">
-    <marquee><h2 class="mt-5">WELCOME ADMIN</h2></marquee>
-    <div class="div1">
-        <img src="https://wallpapers.com/images/high/soaring-white-airplane-android-9tfdb96hg2ajdsw2.webp" class="admin_card_img" />
-        <div class="card">
-            <h3>Adding Planes</h3>
-            <p>Efficiently expand your airport's fleet by seamlessly adding new planes. Enter plane details such as name, model, and registration, and configure essential settings. Prepare for takeoff!</p>
+<div class="admin-home d-flex flex-row justify-content-between align-items-center">
+
+    <div class="card-hover">
+        <div class="card-hover__content">
+            <h3 class="card-hover__title">
+                Adding <span>Planes</span> 
+            </h3>
+            <p class="card-hover__text">
+                Efficiently expand your airport's fleet by seamlessly adding new planes.
+                Enter plane details such as name,model,registration and configure essential settings.
+                Prepare for takeoff!
+            </p>
+            <a href="/Plane/Index" class="card-hover__link">
+                <span>Add Now</span>
+                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                </svg>
+            </a>
         </div>
+        <div class="card-hover__extra">
+            <h4>Add <span>now</span> and seamlessly <span>enjoy our</span> services!</h4>
+        </div>
+        <img src="https://media.cnn.com/api/v1/images/stellar/prod/210712231918-underscored-unidentified-commercial-airplane-flying-in-sky-during-sunset.jpg?q=w_3200,h_1800,x_0,y_0,c_fill" alt="" class="admin-img">
     </div>
-    <div class="div1 div2">
-        @*<img src="https://wallpapers.com/images/high/soaring-white-airplane-android-9tfdb96hg2ajdsw2.webp" />*@
-        <img src="https://media.gettyimages.com/id/1028421522/photo/portrait-of-a-beautiful-female-pilot.jpg?s=612x612&w=0&k=20&c=gRbKSDFQPULw9gOd60rvLtdhzGV5hED5giJBVyku3Zc=" class="admin_card_img" />
-        @*<img src="https://thumbs.dreamstime.com/z/stewardesses-looking-pilot-airport-lobby-stewardesses-looking-pilot-airport-lobby-flight-119814871.jpg?w=992" />*@
-        <div class="card2">
-            <h3>Adding Pilots</h3>
-            <p>Enhance the expertise of your aviation team by adding skilled pilots. Manage pilot profiles. Empower your crew to navigate the skies.</p>
 
-
-
+    <div class="card-hover">
+        <div class="card-hover__content">
+            <h3 class="card-hover__title">
+                Adding  <span>Pilot</span>
+            </h3>
+            <p class="card-hover__text">Enhance the expertise of your aviation team by adding skilled pilots. Manage pilot profiles, certifications, and schedules effortlessly. Empower your crew to navigate the skies.</p>
+            <a href="/Pilot/Index" class="card-hover__link">
+                <span>Add Now</span>
+                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                </svg>
+            </a>
         </div>
+        <div class="card-hover__extra">
+            <h4>Add <span>now</span> and seamlessly <span>enjoy our</span> services!</h4>
+        </div>
+        <img src="https://img.freepik.com/premium-vector/cartoon-drawing-pilot_29937-8168.jpg?w=2000" alt="" class="admin-img">
     </div>
-    <div class="div1 div3">
-        <img src="https://thumbs.dreamstime.com/b/servicing-business-aviation-hangar-backlight-49172766.jpg?w=992" class="admin_card_img" />
-        <div class="card">
-            <h3>Adding Hangars</h3>
-            <p>Optimize your airport's infrastructure by adding new hangars. Accommodate different aircraft sizes and ensure secure storage. Elevate your facilities for smoother operations.</p>
+
+    <div class="card-hover">
+        <div class="card-hover__content">
+            <h3 class="card-hover__title">
+                Adding <span>Hangers</span>
+            </h3>
+            <p class="card-hover__text">Optimize airport's infrastructure by adding new hangars. Accommodate different aircraft sizes and ensure secure storage. Elevate your facilities for smoother operations.</p>
+            <a href="/Hanger/Index" class="card-hover__link">
+                <span>Add Now</span>
+                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                </svg>
+            </a>
         </div>
+        <div class="card-hover__extra">
+            <h4>Add <span>now</span> and seamlessly <span>enjoy our</span> services!</h4>
+        </div>
+        <img src="https://media.istockphoto.com/id/637416224/photo/airplane-in-hangar.jpg?s=612x612&w=0&k=20&c=X4viPMUW9od4N0sAUFpsXS6CTYiErKqwq7oHNaiCgO8=" alt="" class="admin-img">
     </div>
 </div>
 

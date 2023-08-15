@@ -13,7 +13,10 @@ namespace Airport.Models.Entities
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Name must be between 3 and 50 characters.")]
         public string ManufacturerName { get; set; }
 
-
+        [Required(ErrorMessage = "Owner Name is required.")]
+        [RegularExpression(@"^[A-Za-z\s]+$", ErrorMessage = "Owner Name should contain only alphabets and spaces.")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Name must be between 3 and 50 characters.")]
+        public string OwnerName { get; set; }
 
         [Required(ErrorMessage = "Registration Number is required.")]
         [RegularExpression(@"^\d{10}$", ErrorMessage = "Registration Number should be 10 digit numeric.")]

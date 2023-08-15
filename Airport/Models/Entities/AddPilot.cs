@@ -26,6 +26,7 @@ namespace Airport.Models.Entities
 
             [Required(ErrorMessage = "Enter date of birth")]
             [CustomDateValidation(ErrorMessage = "Date of Birth should be less than today's date.")]
+        [AgeValidation(ErrorMessage ="Age must be greater than 23")]
             public DateTime DateOfBirth { get; set; }
             [Required(ErrorMessage = "Please select a valid gender.")]
             public string Gender { get; set; }

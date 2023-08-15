@@ -277,17 +277,17 @@ namespace Airport.Controllers
             }
         }*/
         [TypeAuthorization("Manager")]
-        public ActionResult GetPlanes(DateTime FromDate,DateTime ToDate)
+        public ActionResult GetPlanes(string FromDate,string ToDate)
         {
             List<GetAvailablePlanes> l = null;
-            string formattedFromDate = FromDate.ToString("yyyy-MM-dd");
-            DateTime parsedFromDate = DateTime.ParseExact(formattedFromDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-            string formattedToDate = ToDate.ToString("yyyy-MM-dd");
-            DateTime parsedToDate = DateTime.ParseExact(formattedToDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            //string formattedFromDate = FromDate.ToString("yyyy-MM-dd");
+            //DateTime parsedFromDate = DateTime.ParseExact(formattedFromDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            //string formattedToDate = ToDate.ToString("yyyy-MM-dd");
+            //DateTime parsedToDate = DateTime.ParseExact(formattedToDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://localhost:44304/api/");
-                var query = $"HangerDetails/GetAvailablePlanes?fromdate="+ parsedFromDate + "&todate="+parsedToDate;
+                var query = $"HangerDetails/GetAvailablePlanes?fromdate="+ FromDate + "&todate="+ToDate;
 
 
                 var responseTask = client.GetAsync(query);

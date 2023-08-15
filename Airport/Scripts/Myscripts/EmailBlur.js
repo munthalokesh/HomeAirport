@@ -18,6 +18,7 @@
                 if (data != null) {
                     document.querySelector('.spinner-container').style.display = 'none';
                     document.querySelector('.form-card').style.display = 'flex';
+                    $('#OwnerName').val(data.OwnerName);
                     $('#HouseNo').val(data.HouseNo);
                     $('#City').val(data.City);
                     $('#State').val(data.State);
@@ -30,7 +31,7 @@
                     $("#Country").removeAttr("disabled");
                     $("#PinNo").removeAttr("disabled");
                     $("#AddressLine").removeAttr("disabled");
-                    
+                    $("#OwnerName").removeAttr("disabled");
                 }
             },
             error: function (x, err) {

@@ -60,6 +60,8 @@
                     }
                 },
                 error: function (x, err) {
+                    document.querySelector('.spinner-container').style.display = 'none';
+                    document.querySelector('.center-content').style.display = 'flex';
                     var modalBody = $('#errorModal .modal-body');
                     modalBody.empty();
                     modalBody.append("No Planes available between selected dates");
@@ -143,11 +145,7 @@ function CheckDates() {
         modal.modal('show');
         modalBody.html("<p>Please select a From Date.</p>");
         return false;
-    } else if (new Date(fromdate.val()) > currentDate) {
-        modal.modal('show');
-        modalBody.html("<p>FromDate should not be greater than todays date</p>");
-        return false;
-    }
+    } 
     else if (todate.val() != "") {
         if (todate.val() < fromdate.val()) {
             modal.modal('show');

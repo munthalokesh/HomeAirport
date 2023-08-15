@@ -18,10 +18,7 @@
             modal.modal('show');
             modalBody.html("<p>Fromdate cannot be greater than todate</p>");
         }
-        else if (new Date(fromdate) > currentDate) {
-            modal.modal('show');
-            modalBody.html("<p>Fromdate cannot be greater than current date</p>");
-        }
+        
         else {
             
             //alert(email);

@@ -67,6 +67,7 @@
                                                 @Html.ValidationMessage("Capacity")
                                             </div>
                                         </div>
+
                                         <div class="row align-items-center pt-2">
                                             <div class="col-md-12">
                                                 <h6 class="mb-1 label">@Html.Label("Email Address")<span class="text-danger">*</span></h6>
@@ -74,6 +75,15 @@
                                             </div>
                                             <div class="col-md-12">
                                                 @Html.ValidationMessage("Email")
+                                            </div>
+                                        </div>
+                                        <div class="row align-items-center pt-2">
+                                            <div class="col-md-12">
+                                                <h6 class="mb-1 label">@Html.Label("Owner Name")<span class="text-danger">*</span></h6>
+                                                @Html.TextBox("OwnerName", null, new { @class = "custom-textbox",disabled="disabled" })
+                                            </div>
+                                            <div class="col-md-12">
+                                                @Html.ValidationMessage("OwnerName")
                                             </div>
                                         </div>
                                     </div>

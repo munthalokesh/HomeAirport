@@ -8,11 +8,45 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="~/Scripts/MyScripts/GetPlanes.js"></script>
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - TechAir</title>
     @*<link href="~/Content/HomePage/homepage.css" rel="stylesheet" type="text/css" runat="server" />*@
-    <link href="~/Content/Manager/ManagerHome.css" rel="stylesheet" />
+  
     <link href="~/Content/Admin/formstyles.css" rel="stylesheet" />
+    <style>
+        .user-details {
+            padding-right: 15px;
+        }
 
+        .email {
+            margin-bottom: 0px;
+            color: white;
+            margin-top: 0px;
+        }
+
+        .usertype {
+            margin-bottom: 0px;
+            color: white;
+            margin-top: 0px;
+            padding-top:0px;
+        }
+
+        .logout {
+            margin-left: 15px;
+            font-size: 15px;
+            text-decoration: underline;
+            padding-top: 0px;
+        }
+        
+        .name {
+            font-size: 30px;
+            font-family: 'Open Sans', sans-serif;
+            font-family: 'Roboto', sans-serif;
+            font-family: 'Roboto Mono', monospace;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+    </style>
+    <link href="~/Content/HomePage/navstyles.css" rel="stylesheet" />
 </head>
 <body>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark ">
@@ -33,17 +67,19 @@
                         </ul>
                     </div>*@
             <nav class="navbar fixed-top navbar-light bg-dark nav-style ">
-                <div>
+                <div class="admin-nav">
                     <a class="navbar-brand" href="#HomeSection">
                         <img src="https://onewave.techwave.net/assets/images/TW_nimonic.png" width="50" height="50" class="d-inline-block align-top" alt="">
                         <span class="name">TechAir</span>
                     </a>
-                    <a class="navbar-brand" href="@Url.Action("Home", "Manager")">Home</a>
-                    <a class="navbar-brand" href="@Url.Action("GetHangers", "Hanger")">Book Hanger</a>
-                    <a class="navbar-brand" href="@Url.Action("GetStatus", "Hanger")">Hanger Status</a>
+                    <a class="navbar-brand hoverable" href="@Url.Action("Home", "Manager")">Home</a>
+                    <a class="navbar-brand hoverable" href="@Url.Action("GetHangers", "Hanger")">Book Hanger</a>
+                    <a class="navbar-brand hoverable" href="@Url.Action("GetStatus", "Hanger")">Hanger Status</a>
                 </div>
-                <div>
-                    <a class="navbar-brand" href="@Url.Action("Logout", "Login")">Logout</a>
+                <div class="d-flex flex-column align-items-center user-details">
+                    <p class="email">@Session["email"]</p>
+                    <p class="usertype">@Session["type"]</p>
+                    <a class="navbar-brand hoverable logout" href="@Url.Action("Logout", "Login")">Logout</a>
                 </div>
             </nav>
         </div>

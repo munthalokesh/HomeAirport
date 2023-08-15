@@ -12,6 +12,7 @@ namespace Airport.Models.BusinessLayer
         {
             AddPlane addPlane = new AddPlane();
             addPlane.ManufacturerName = p.ManufacturerName.Trim();
+            addPlane.OwnerName = p.OwnerName.Trim();
             addPlane.RegistrationNo = p.RegistrationNo;
             addPlane.ModelNo=p.ModelNo.Trim();
             addPlane.PlaneName = p.PlaneName.Trim();

@@ -11,11 +11,33 @@
     <script src="~/Scripts/MyScripts/GetPlanes.js"></script>
     <script src="https://kit.fontawesome.com/bb109f0f8b.js" crossorigin="anonymous"></script>
 
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - TechAir</title>
     <link href="~/Content/HomePage/homepage.css" rel="stylesheet" />
-    <link href="~/Content/HomePage/ServicesStyles.css" rel="stylesheet" />
+    
+    <link href="~/Content/HomePage/navstyles.css" rel="stylesheet" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <script>
+        $(document).ready(function () {
+            // Add click event handler to .hoverable links
+            $('.hoverable').on('click', function () {
+                $('.hoverable').removeClass('active'); // Remove 'active' class from all links
+                $(this).addClass('active'); // Add 'active' class to the clicked link
+                $('.hoverable').removeClass('hovered'); // Remove 'hovered' class from all links
+            });
+
+            // Add hover event handler to .hoverable links
+            $('.hoverable').on('mouseenter', function () {
+                if (!$(this).hasClass('active')) {
+                    $(this).addClass('hovered'); // Add 'hovered' class to the link
+                }
+            }).on('mouseleave', function () {
+                $(this).removeClass('hovered'); // Remove 'hovered' class from the link
+            });
+        });
+
+
+    </script>
 </head>
 <body>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
@@ -41,13 +63,13 @@
                         <img src="https://onewave.techwave.net/assets/images/TW_nimonic.png" width="50" height="50" class="d-inline-block align-top" alt="">
                         <span class="name">TechAir</span>
                     </a>
-                    <a class="navbar-brand" href="@Url.Action("Index", "Home")">Home</a>
+                    <a class="navbar-brand hoverable" href="@Url.Action("Index", "Home")">Home</a>
                     @*<a class="navbar-brand" href="#aboutus">About Us</a>*@
                 </div>
                 <div class="profile-icon">
                     <img src="~/Content/Images/icons8-male-user-50.png" class="login-icon"/>
                     
-                        <a class="navbar-brand login text-center" href="@Url.Action("Index", "Login")">Login</a>
+                        <a class="navbar-brand login text-center hoverable" href="@Url.Action("Index", "Login")">Login</a>
                     
                 </div>
             </nav>

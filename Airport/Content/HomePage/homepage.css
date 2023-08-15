@@ -18,14 +18,15 @@ body {
     background-size: cover;
     position: relative;*/ /* Change to relative positioning */
     /*z-index: -1;*/
+
     position: relative;
     width: 100%;
 }
 
-}
+
 
 .homepage {
-    margin-top: 120px;
+    
     margin-right: 0px;
     margin-left: 0px;
     padding: 0px;
