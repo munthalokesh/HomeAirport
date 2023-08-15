@@ -26,6 +26,7 @@ namespace Airport.Models.Entities
         public string SocialSecuirtyNo { get; set; }
         [Required(ErrorMessage = "*Required")]
         [CustomDateValidation(ErrorMessage = "Date of Birth should be less than today's date.")]
+        [AgeValidation(ErrorMessage="Age should greater than 23")]
         public DateTime Dob { get; set; }
         [Required(ErrorMessage = "*Required")]
         public string Gender { get; set; }
