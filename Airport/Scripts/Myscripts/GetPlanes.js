@@ -128,6 +128,8 @@
                     $("#errorModal").modal('show');
                 }
             });
+            document.querySelector('.spinner-container').style.display = 'flex';
+            document.querySelector('.center-content').style.display = 'none';
             setTimeout(function () {
                 alert(fromdate + todate);
                 $.ajax({
@@ -138,7 +140,8 @@
                     success: function (data) {
 
                         alert(data.length);
-
+                        document.querySelector('.spinner-container').style.display = 'none';
+                        document.querySelector('.center-content').style.display = 'flex';
                         $("#AvailableHangers").empty()
                         for (i = 0; i < data.length; i++) {
                             var newRow = `
