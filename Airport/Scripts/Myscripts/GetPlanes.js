@@ -128,9 +128,51 @@
                     $("#errorModal").modal('show');
                 }
             });
+            setTimeout(function () {
+                alert(fromdate + todate);
+                $.ajax({
+                    url: "/Hanger/ReloadHangers?fromdate=" + fromdate + "&todate=" + todate,
+                    type: 'GET',
+                    dataType: "json",
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+
+                        alert(data.length);
+
+                        $("#AvailableHangers").empty()
+                        for (i = 0; i < data.length; i++) {
+                            var newRow = `
+        <div class="table-row">
+            <div class="table-cell">${item.HangerLocation}</div>
+            <div class="table-cell">${item.HangerId}</div>
+            <div class="table-cell">${item.ManagerName}</div>
+            <div class="table-cell">${item.SSNo}</div>
+            <div class="table-cell">${item.HangerId}</div>
+        </div>
+    `;
+                            $("#AvailableHangers").append(newRow);
+                        }
+                    },
+                    error: function (x, err) {
+                        var modalBody = $('#errorModal .modal-body');
+                        modalBody.empty();
+                        modalBody.append("<p>No Hangers Available</p>")
+                        $('#successModal').modal('hide');
+                        $("#errorModal").modal('show');
+                        setTimeout(function () {
+                            window.location.href = "/hanger/Gethangers";
+                        }, 4000);
+                    }
+                });
+            }, 4000);
+            
 
 
         }
+    })
+    $("#close").click(function () {
+        var fromdate = $("input[name='fromdate']").val();
+        var todate = $("input[name='todate']").val();
     })
 })
 

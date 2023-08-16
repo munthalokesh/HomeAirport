@@ -30,7 +30,7 @@
                                 <input type="hidden" name="todate" value='@TempData["todate"]' />
                                 <input type="hidden" name="@($"L{item.HangerId}")" value='@item.HangerLocation' />
                                 <input type="hidden" name="@($"I{item.HangerId}")" value='@item.HangerId' />
-                                <div class="table-row">
+                                <div class="table-row" id="AvailableHangers">
                                     <div class="table-cell">@item.HangerLocation</div>
                                     <div class="table-cell">@item.HangerId</div>
                                     <div class="table-cell">@item.ManagerName</div>

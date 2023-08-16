@@ -75,23 +75,23 @@ namespace Airport.Controllers
         }
         [TypeAuthorization("Manager")]
         [HttpPost]
-        public ActionResult GetHangers(DateTime? FromDate,DateTime? ToDate,string GetHangersBtn)
+        public ActionResult GetHangers(DateTime? FromDate, DateTime? ToDate, string GetHangersBtn)
         {
-            if (GetHangersBtn=="GetHangers")
+            if (GetHangersBtn == "GetHangers")
             {
-                List < GetAvailableHangers > l= null;
+                List<GetAvailableHangers> l = null;
                 TempData["fromdate"] = FromDate;
-                TempData["todate"]=ToDate;
+                TempData["todate"] = ToDate;
                 TempData["fromdate1"] = FromDate;
                 TempData["todate1"] = ToDate;
-                if(!ToDate.HasValue)
+                if (!ToDate.HasValue)
                 {
                     ToDate = FromDate;
                 }
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri("https://localhost:44304/api/");
-                    var query = $"HangerDetails/GetAvailableHangers?fromdate={FromDate:yyyy-MM-dd}&todate={ToDate:yyyy-MM-dd}";
+                    var query = $"HangerDetails/GetAvailableHangers?fromdate={FromDate}&todate={ToDate}";
 
 
                     var responseTask = client.GetAsync(query);
@@ -101,14 +101,14 @@ namespace Airport.Controllers
                     if (result.IsSuccessStatusCode)
                     {
                         l = readData.Result;
-                        
+
                         ModelState.Clear();
-                        return View("displayHangers",l);
+                        return View("displayHangers", l);
                     }
                     else
                     {
                         l = readData.Result;
-                        if(l==null || l.Count==0)
+                        if (l == null || l.Count == 0)
                         {
                             ViewBag.msg = "No Hangers Available chose different dates to find hanger availability";
                             return View();
@@ -193,7 +193,7 @@ namespace Airport.Controllers
         public ActionResult BookHanger(DateTime fromdate, DateTime todate, string planeId, string hangerId)
         {
             string st = "";
-            Booking b=new Booking();
+            Booking b = new Booking();
             b.FromDate = fromdate;
             b.ToDate = todate;
             b.PlaneId = planeId;
@@ -277,7 +277,7 @@ namespace Airport.Controllers
             }
         }*/
         [TypeAuthorization("Manager")]
-        public ActionResult GetPlanes(string FromDate,string ToDate)
+        public ActionResult GetPlanes(string FromDate, string ToDate)
         {
             List<GetAvailablePlanes> l = null;
             //string formattedFromDate = FromDate.ToString("yyyy-MM-dd");
@@ -287,7 +287,7 @@ namespace Airport.Controllers
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://localhost:44304/api/");
-                var query = $"HangerDetails/GetAvailablePlanes?fromdate="+ FromDate + "&todate="+ToDate;
+                var query = $"HangerDetails/GetAvailablePlanes?fromdate=" + FromDate + "&todate=" + ToDate;
 
 
                 var responseTask = client.GetAsync(query);
@@ -298,8 +298,8 @@ namespace Airport.Controllers
                 {
                     l = readData.Result;
 
-                   
-                    return Json(l,JsonRequestBehavior.AllowGet);
+
+                    return Json(l, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
@@ -313,7 +313,36 @@ namespace Airport.Controllers
                 }
             }
         }
-            
+
+        public ActionResult ReloadHangers(string fromdate,string todate)
+        {
+            List<GetAvailableHangers> l = null;
+
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44304/api/");
+                var query = $"HangerDetails/GetAvailableHangers?fromdate="+fromdate+"&todate="+todate;
+
+
+                var responseTask = client.GetAsync(query);
+                responseTask.Wait();
+                var result = responseTask.Result;
+                var readData = result.Content.ReadAsAsync<List<GetAvailableHangers>>();
+                if (result.IsSuccessStatusCode)
+                {
+                    l = readData.Result;
+
+                    ModelState.Clear();
+                    return Json(l, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    l = readData.Result;
+                    return Json(null, JsonRequestBehavior.AllowGet);
+                }
+            }
+        }
     }
 }
     
